@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_CREDENTIALS_ID = 'docker-hub-credentials'
-//        DOCKER_IMAGE = 'your-docker-hub-username/your-docker-image-name'
+        DOCKER_IMAGE = 'noobcoder1209/project_1'
     }
 
     stages {
