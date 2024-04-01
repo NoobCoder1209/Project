@@ -27,6 +27,7 @@ pipeline {
                 }
             }
         }
+    }
         post {
         success {
             echo 'Build and Push to Docker Hub successful!'
@@ -35,5 +36,4 @@ pipeline {
             echo 'Build or Push to Docker Hub failed!'
         }
     }
-}
 }
