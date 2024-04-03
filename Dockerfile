@@ -7,6 +7,9 @@ RUN apk add --no-cache gcc musl-dev linux-headers
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
+# Install curl
+RUN apk add --no-cache curl
+
 # Install Docker
 RUN curl -fsSLO https://get.docker.com/builds/Linux/x86_64/docker-17.04.0-ce.tgz \
   && tar xzvf docker-17.04.0-ce.tgz \
