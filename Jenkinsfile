@@ -6,22 +6,6 @@ pipeline {
         DOCKER_IMAGE = 'noobcoder1209/project_1'
     }
 
-    stages {
-        stage("Build Docker Image") {
-            agent any
-            environment {
-        HOME = "${env.WORKSPACE}"
-            }
-        steps {
-                script {
-                    // Build the Docker image
-                    docker.build(DOCKER_IMAGE)
-                }
-            }
-        
-        }
-    
-
         stage('Initialize'){
             steps {
                 script {
@@ -31,14 +15,14 @@ pipeline {
             }
         }
 
-//        stage('Build Docker Image') {
-//            steps {
-//                script {
-//                    // Build the Docker image
-//                    docker.build(DOCKER_IMAGE)
-//                }
-//            }
-//        }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // Build the Docker image
+                    docker.build(DOCKER_IMAGE)
+                }
+            }
+        }
 
         stage('Push Docker Image to Docker Hub') {
             steps {
@@ -60,4 +44,3 @@ pipeline {
             echo 'Build or Push to Docker Hub failed!'
         }
     }
-}
