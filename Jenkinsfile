@@ -53,3 +53,4 @@ pipeline {
             echo 'Build or Push to Docker Hub failed!'
         }
     }
+}
