@@ -12,6 +12,13 @@ pipeline {
             environment {
         HOME = "${env.WORKSPACE}"
             }
+        steps {
+                script {
+                    // Build the Docker image
+                    docker.build(DOCKER_IMAGE)
+                }
+            }
+        
         }
     
 
@@ -24,14 +31,14 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    // Build the Docker image
-                    docker.build(DOCKER_IMAGE)
-                }
-            }
-        }
+//        stage('Build Docker Image') {
+//            steps {
+//                script {
+//                    // Build the Docker image
+//                    docker.build(DOCKER_IMAGE)
+//                }
+//            }
+//        }
 
         stage('Push Docker Image to Docker Hub') {
             steps {
