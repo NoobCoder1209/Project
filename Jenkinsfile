@@ -13,7 +13,7 @@ pipeline {
         HOME = "${env.WORKSPACE}"
             }
         }
-    }
+    
 
         stage('Initialize'){
             steps {
