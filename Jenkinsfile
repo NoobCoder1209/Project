@@ -6,6 +6,7 @@ pipeline {
         DOCKER_IMAGE = 'noobcoder1209/project_1'
     }
 
+    stages {
         stage('Initialize'){
             steps {
                 script {
@@ -44,3 +45,4 @@ pipeline {
             echo 'Build or Push to Docker Hub failed!'
         }
     }
+}
