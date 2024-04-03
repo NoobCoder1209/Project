@@ -7,6 +7,14 @@ pipeline {
     }
 
     stages {
+        stage("Build Docker Image") {
+            agent any
+            environment {
+        HOME = "${env.WORKSPACE}"
+            }
+        }
+    }
+
         stage('Initialize'){
             steps {
                 script {
