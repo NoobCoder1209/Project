@@ -31,7 +31,7 @@ pipeline {
                     // Log in to Docker Hub
                     docker.withRegistry('https://registry.hub.docker.com', DOCKER_CREDENTIALS_ID) {
                         // Push the Docker image to Docker Hub
-                        docker.image("${DOCKER_IMAGE}:${env.BUILD_NUMBER}").push()
+                        docker.image("${DOCKER_IMAGE}").push()
                     }
                 }
             }
