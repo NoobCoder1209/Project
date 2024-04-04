@@ -1,3 +1,4 @@
+# Stage 1: Python Flask application
 FROM python:3.10-alpine
 ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
@@ -22,5 +23,18 @@ COPY . .
 
 # Expose the port your app will run on (e.g., 50)
 EXPOSE 5000
-COPY . .
-CMD ["flask", "run"]
+
+
+# Stage 2: Jenkins
+FROM jenkins/jenkins:2.440.2-jdk17 AS jenkins
+USER root
+RUN apt-get update && apt-get install -y lsb-release
+RUN curl -fsSLo /usr/share/keyrings/docker-archive-keyring.asc \
+  https://download.docker.com/linux/debian/gpg
+RUN echo "deb [arch=$(dpkg --print-architecture) \
+  signed-by=/usr/share/keyrings/docker-archive-keyring.asc] \
+  https://download.docker.com/linux/debian \
+  $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
+RUN apt-get update && apt-get install -y docker-ce-cli
+USER jenkins
+RUN jenkins-plugin-cli --plugins "blueocean docker-workflow"
