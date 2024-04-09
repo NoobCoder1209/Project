@@ -18,7 +18,13 @@ RUN apk add --no-cache curl
 #  && rm -r docker docker-17.04.0-ce.tgz
 
 # Install Docker
-RUN apk add --no-cache docker
+#RUN apk add --no-cache docker
+
+# Install Docker
+RUN curl -fsSLO https://get.docker.com/builds/Linux/x86_64/docker-18.09.0.tgz \
+  && tar xzvf docker-18.09.0.tgz \
+  && mv docker/docker /usr/local/bin \
+  && rm -r docker docker-18.09.0.tgz
 
 # Set working directory and copy project files
 WORKDIR /app
