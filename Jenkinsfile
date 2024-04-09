@@ -13,7 +13,7 @@ pipeline {
         myDocker = 'docker:' + DOCKER_VERSION
     }
 
-    // stages {
+    stages {
     //     stage('Initialize'){
     //         steps {
     //             script {
