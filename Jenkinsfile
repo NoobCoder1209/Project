@@ -4,6 +4,8 @@ pipeline {
     environment {
         DOCKER_CREDENTIALS_ID = 'docker-hub-credentials'
         DOCKER_IMAGE = 'noobcoder1209/project_1'
+        DOCKER_VERSION = '18.09-dind' // Specify the Docker version here
+
     }
 
     stages {
