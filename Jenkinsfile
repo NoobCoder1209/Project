@@ -8,15 +8,20 @@ pipeline {
 
     }
 
-    stages {
-        stage('Initialize'){
-            steps {
-                script {
-                    def dockerHome = tool 'myDocker'
-                    env.PATH = "${dockerHome}/bin:${env.PATH}"
-                }
-            }
-        }
+     tools {
+        // Define Docker tool with the specified version
+        myDocker = 'docker:' + DOCKER_VERSION
+    }
+
+    // stages {
+    //     stage('Initialize'){
+    //         steps {
+    //             script {
+    //                 def dockerHome = tool 'myDocker'
+    //                 env.PATH = "${dockerHome}/bin:${env.PATH}"
+    //             }
+    //         }
+    //     }
 
         stage('Build Docker Image') {
             steps {
