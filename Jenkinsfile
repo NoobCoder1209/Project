@@ -4,32 +4,17 @@ pipeline {
     environment {
         DOCKER_CREDENTIALS_ID = 'docker-hub-credentials'
         DOCKER_IMAGE = 'noobcoder1209/project_1'
-        DOCKER_VERSION = '18.09-dind' // Specify the Docker version here
-
     }
 
     stages {
-        stage('Initialize') {
-            agent any // Use any available agent
+        stage('Initialize'){
             steps {
-                // Define Docker tool with the desired version
-                tools {
-                    someTool 'someVersion'
-                }
                 script {
-                    def dockerHome = tool 'someTool'
+                    def dockerHome = tool 'myDocker'
                     env.PATH = "${dockerHome}/bin:${env.PATH}"
                 }
             }
         }
-    //     stage('Initialize'){
-    //         steps {
-    //             script {
-    //                 def dockerHome = tool 'myDocker'
-    //                 env.PATH = "${dockerHome}/bin:${env.PATH}"
-    //             }
-    //         }
-    //     }
 
         stage('Build Docker Image') {
             steps {
