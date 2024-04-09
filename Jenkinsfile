@@ -8,12 +8,22 @@ pipeline {
 
     }
 
-     tools {
-        // Define Docker tool with the specified version
-        myDocker = 'docker:' + DOCKER_VERSION
-    }
-
     stages {
+        stage('Initialize') {
+            agent {
+                label 'master'
+            }
+            steps {
+                // Define Docker tool with the desired version
+                tools {
+                    someTool 'someVersion'
+                }
+                script {
+                    def dockerHome = tool 'someTool'
+                    env.PATH = "${dockerHome}/bin:${env.PATH}"
+                }
+            }
+        }
     //     stage('Initialize'){
     //         steps {
     //             script {
