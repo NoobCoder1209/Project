@@ -10,9 +10,7 @@ pipeline {
 
     stages {
         stage('Initialize') {
-            agent {
-                label 'master'
-            }
+            agent any // Use any available agent
             steps {
                 // Define Docker tool with the desired version
                 tools {
