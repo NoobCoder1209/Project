@@ -7,6 +7,20 @@ pipeline {
     }
 
     stages {
+        stage('Check Docker') {
+            steps {
+                script {
+                    // Check if Docker is running
+                    sh 'docker info'
+
+                    // Check Docker version
+                    sh 'docker version'
+
+                    // Check DOCKER_HOST environment variable
+                    echo "DOCKER_HOST: ${env.DOCKER_HOST}"
+                }
+            }
+        }
         stage('Initialize'){
             steps {
                 script {
