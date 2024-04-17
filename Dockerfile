@@ -26,7 +26,7 @@ EXPOSE 5000
 
 
 # Stage 2: Jenkins
-FROM jenkins/jenkins:latest AS jenkins
+FROM jenkins/jenkins AS jenkins
 USER root
 RUN apt-get update && apt-get install -y lsb-release
 RUN curl -fsSLo /usr/share/keyrings/docker-archive-keyring.asc \
