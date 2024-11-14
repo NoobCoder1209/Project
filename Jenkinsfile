@@ -7,6 +7,13 @@ pipeline {
     }
 
     stages {
+
+        stage('Check Docker') {
+            steps {
+                sh 'docker --version'
+            }
+        }
+
         stage('Initialize'){
             steps {
                 script {
