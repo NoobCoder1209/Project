@@ -28,6 +28,9 @@ EXPOSE 5000
 # Stage 2: Jenkins
 FROM jenkins/jenkins AS jenkins
 USER root
+# Install sudo
+RUN apt-get update && apt-get install -y sudo
+#####
 RUN apt-get update && apt-get install -y lsb-release
 RUN curl -fsSLo /usr/share/keyrings/docker-archive-keyring.asc \
   https://download.docker.com/linux/debian/gpg
