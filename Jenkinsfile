@@ -8,9 +8,29 @@ pipeline {
 
     stages {
 
-        stage('Check Docker1') {
+        stage('Install Docker') {
             steps {
-                sh 'docker --version'
+                script {
+                    // Check if Docker is installed
+                    def dockerInstalled = sh(script: 'which docker', returnStatus: true) == 0
+
+                    if (!dockerInstalled) {
+                        echo 'Docker is not installed. Installing Docker...'
+                        // Installing Docker (Debian/Ubuntu example)
+                        sh '''
+                            sudo apt-get update
+                            sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+                            curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+                            sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+                            sudo apt-get update
+                            sudo apt-get install -y docker-ce
+                            sudo systemctl enable docker
+                            sudo systemctl start docker
+                        '''
+                    } else {
+                        echo 'Docker is already installed.'
+                    }
+                }
             }
         }
 
