@@ -42,6 +42,27 @@ RUN apt-get update && apt-get install -y docker-ce-cli
 USER jenkins
 RUN jenkins-plugin-cli --plugins "blueocean docker-workflow"
 
+# Use the Jenkins LTS (Long Term Support) image as a base
+FROM jenkins/jenkins:lts
+
+# Switch to root user to install Docker
+USER root
+
+# Install Docker and other dependencies
+RUN apt-get update && \
+    apt-get install -y apt-transport-https ca-certificates curl gnupg2 software-properties-common && \
+    curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
+    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" && \
+    apt-get update && \
+    apt-get install -y docker-ce-cli docker-ce && \
+    rm -rf /var/lib/apt/lists/*
+
+# Set up Docker group permissions
+RUN usermod -aG docker jenkins
+
+# Switch back to Jenkins user
+USER jenkins
+
 # FROM jenkins/jenkins
 # USER root
 # RUN apt-get update -qq \
