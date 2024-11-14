@@ -12,24 +12,15 @@ pipeline {
             steps {
                 script {
                     // Check if Docker is installed
-                    def dockerInstalled = sh(script: 'which docker', returnStatus: true) == 0
-
-                    if (!dockerInstalled) {
-                        echo 'Docker is not installed. Installing Docker...'
-                        // Installing Docker (Debian/Ubuntu example)
-                        sh '''
-                            sudo apt-get update
-                            sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
-                            curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-                            sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-                            sudo apt-get update
-                            sudo apt-get install -y docker-ce
-                            sudo systemctl enable docker
-                            sudo systemctl start docker
-                        '''
-                    } else {
-                        echo 'Docker is already installed.'
-                    }
+                    sh 'which docker || echo "Docker not found"'
+                    // Install Docker if not installed
+                    sh ''' 
+                        if ! which docker > /dev/null; then 
+                            echo "Docker not found. Installing Docker..."; 
+                            apt-get update && apt-get install -y sudo; 
+                            sudo apt-get install -y docker-ce-cli;
+                        fi
+                    '''
                 }
             }
         }
