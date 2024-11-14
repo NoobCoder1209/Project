@@ -39,7 +39,7 @@ RUN echo "deb [arch=$(dpkg --print-architecture) \
   https://download.docker.com/linux/debian \
   $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
 RUN apt-get update && apt-get install -y docker-ce-cli
-USER jenkins
+# USER jenkins
 RUN jenkins-plugin-cli --plugins "blueocean docker-workflow"
 
 # Use the Jenkins LTS (Long Term Support) image as a base
@@ -57,11 +57,11 @@ RUN apt-get update && \
     apt-get install -y docker-ce-cli docker-ce && \
     rm -rf /var/lib/apt/lists/*
 
-# Set up Docker group permissions
-RUN usermod -aG docker jenkins
+# # Set up Docker group permissions
+# RUN usermod -aG docker jenkins
 
-# Switch back to Jenkins user
-USER jenkins
+# # Switch back to Jenkins user
+# USER jenkins
 
 # FROM jenkins/jenkins
 # USER root
