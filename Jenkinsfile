@@ -8,23 +8,6 @@ pipeline {
 
     stages {
 
-        stage('Install Docker') {
-            steps {
-                script {
-                    // Check if Docker is installed
-                    sh 'which docker || echo "Docker not found"'
-                    // Install Docker if not installed
-                    sh ''' 
-                        if ! which docker > /dev/null; then 
-                            echo "Docker not found. Installing Docker..."; 
-                            apt-get update && apt-get install -y sudo; 
-                            sudo apt-get install -y docker-ce-cli;
-                        fi
-                    '''
-                }
-            }
-        }
-
         stage('Initialize'){
             steps {
                 script {
